@@ -1,6 +1,7 @@
 package com.example.pk.tigergallery;
 
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -35,34 +36,33 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RetrofitInterface jsonService = RetrofitInterface.retrofit.create(RetrofitInterface.class);
-        Call<JSONResult> call = jsonService.getEverything();
-        final ArrayList<ImageElement> urlArray = new ArrayList<>();
-
-        call.enqueue(new Callback<JSONResult>() {
+        AsyncTask.execute(new Runnable() {
             @Override
-            public void onResponse(Call<JSONResult> call, Response<JSONResult> response) {
+            public void run() {
+                RetrofitInterface jsonService = RetrofitInterface.retrofit.create(RetrofitInterface.class);
+                Call<JSONResult> call = jsonService.getEverything();
+                final ArrayList<ImageElement> urlArray = new ArrayList<>();
 
-                for (int i = 0; i < response.body().getItems().size(); i++) {
+                call.enqueue(new Callback<JSONResult>() {
+                    @Override
+                    public void onResponse(Call<JSONResult> call, Response<JSONResult> response) {
 
-                    String urlString = response.body().getItems().get(i).getMedia().getM();
+                        for (int i = 0; i < response.body().getItems().size(); i++) {
 
-                    urlArray.add(new ImageElement(urlString, "Testowy tytuł"));
+                            String urlString = response.body().getItems().get(i).getMedia().getM();
 
-                    //AsyncTask<String, Void, Bitmap> imgElement = new ImageDownloader(MainActivity.this).execute(urlString);
-                    /*try {
-                        urlArray.add(new ImageDownloader(MainActivity.this).execute(urlString).get());
-                    } catch (InterruptedException | ExecutionException e) {
-                        e.printStackTrace();
-                    }*/
-                }
-                ImageElement [] imageElementsList = urlArray.toArray(new ImageElement[urlArray.size()]);
-                showGridWithImages(imageElementsList);
-            }
+                            urlArray.add(new ImageElement(urlString, "Test Title"));
 
-            @Override
-            public void onFailure(Call<JSONResult> call, Throwable t) {
-                Log.d(TAG, call.request().toString());
+                        }
+                        ImageElement [] imageElementsList = urlArray.toArray(new ImageElement[urlArray.size()]);
+                        showGridWithImages(imageElementsList);
+                    }
+
+                    @Override
+                    public void onFailure(Call<JSONResult> call, Throwable t) {
+                        Log.d(TAG, call.request().toString());
+                    }
+                });
             }
         });
     }
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         public void showGridWithImages(ImageElement[] imgBitmapArray) {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        int numberOfColumns = 2;
+        int numberOfColumns = 3;
         recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
         recyclerViewAdapter = new RecyclerViewAdapter(this, imgBitmapArray);
         recyclerViewAdapter.setClickListener(this);
