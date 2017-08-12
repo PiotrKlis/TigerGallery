@@ -10,17 +10,19 @@ import android.widget.ImageView;
 
 import com.example.pk.tigergallery.R;
 
+import java.util.ArrayList;
+
 /**
  * Created by PK on 11.08.2017.
  */
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private Bitmap[] mData = new Bitmap[0];
+    private ArrayList<Bitmap> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
-    public RecyclerViewAdapter(Context context, Bitmap[] data) {
+    public RecyclerViewAdapter(Context context, ArrayList<Bitmap> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -33,14 +35,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(RecyclerViewAdapter.ViewHolder holder, int position) {
-        Bitmap animal = mData[position];
-        holder.imageView.setImageBitmap(animal);
+        Bitmap image = mData.get(position);
+        holder.imageView.setImageBitmap(image);
 
     }
 
     @Override
     public int getItemCount() {
-        return mData.length;
+        return mData.size();
     }
 
 
@@ -63,7 +65,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     // convenience method for getting data at click position
     public Bitmap getItem(int id) {
-        return mData[id];
+        return mData.get(id);
     }
 
     // allows clicks events to be caught

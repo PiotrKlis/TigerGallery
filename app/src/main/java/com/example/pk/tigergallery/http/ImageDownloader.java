@@ -9,21 +9,19 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.drew.imaging.ImageMetadataReader;
-import com.drew.metadata.Directory;
-import com.drew.metadata.Metadata;
-import com.drew.metadata.Tag;
 import com.example.pk.tigergallery.MainActivity;
 import com.example.pk.tigergallery.model.ImageElement;
 
 import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 
 /**
  * Created by PK on 11.08.2017.
  */
 
-    public class ImageDownloader extends AsyncTask<String, Void, ImageElement> {
+    public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
 
     private ProgressBar mProgressBar;
 
@@ -38,11 +36,10 @@ import java.io.InputStream;
         }
 
         @Override
-        protected ImageElement doInBackground(String... URL) {
+        protected Bitmap doInBackground(String... URL) {
 
             String imageURL = URL[0];
             Bitmap bitmap = null;
-            String metaDataString = "";
 
             try {
                 // Download Image from URL
@@ -50,24 +47,15 @@ import java.io.InputStream;
                 // Decode Bitmap
                 bitmap = BitmapFactory.decodeStream(input);
 
-                // Metadata Download
-                BufferedInputStream bis = new BufferedInputStream(input);
-                Metadata metadata = ImageMetadataReader.readMetadata(bis);
-
-                for (Directory directory : metadata.getDirectories()) {
-                    for (Tag tag : directory.getTags()) {
-                        metaDataString = String.valueOf(tag);
-                    }
-                }
-
-            } catch (Exception e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-            return new ImageElement(bitmap, metaDataString);
+
+            return bitmap;
         }
 
         @Override
-        protected void onPostExecute(ImageElement result) {
+        protected void onPostExecute(Bitmap result) {
             // Close progressdialog
             mProgressBar.setVisibility(View.INVISIBLE);
         }
