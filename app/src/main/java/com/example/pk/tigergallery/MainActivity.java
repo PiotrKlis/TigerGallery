@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                             String tags = response.body().getItems().get(i).getTags();
 
                             urlArray.add(new ImageElement(urlString, title, link, date_taken,
-                                    description,published,author, author_id,tags));
+                                    description,published,author, author_id, tags));
 
                         }
                         ImageElement [] imageElementsList = urlArray.toArray(new ImageElement[urlArray.size()]);

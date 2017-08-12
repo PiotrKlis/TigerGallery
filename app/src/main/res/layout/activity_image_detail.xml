@@ -7,13 +7,11 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
@@ -27,7 +25,6 @@
                     android:id="@+id/image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:adjustViewBounds="true" />
 
             </LinearLayout>
@@ -56,13 +53,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
-                            android:text="Title: " />
+                            android:text="@string/detail_txt_title" />
 
                         <TextView
                             android:id="@+id/txt_title"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -76,13 +72,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
-                            android:text="Link: " />
+                            android:text="@string/detail_txt_link" />
 
                         <TextView
                             android:id="@+id/txt_link"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -96,12 +91,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
-                            android:text="Media: " />
+                            android:text="@string/detail_txt_media" />
                         <TextView
                             android:id="@+id/txt_media"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:layout_height="wrap_content" />
 
 
 
@@ -118,13 +112,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
-                            android:text="Date taken: " />
+                            android:text="@string/detail_txt_date_taken" />
 
                         <TextView
                             android:id="@+id/txt_date_taken"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:layout_height="wrap_content" />
 
                     </LinearLayout>
 
@@ -139,13 +132,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
-                            android:text="Description: " />
+                            android:text="@string/detail_txt_description" />
 
                         <TextView
                             android:id="@+id/txt_description"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -159,13 +151,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
-                            android:text="Published: " />
+                            android:text="@string/detail_txt_published" />
 
                         <TextView
                             android:id="@+id/txt_published"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:layout_height="wrap_content" />
 
                     </LinearLayout>
 
@@ -180,13 +171,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
-                            android:text="Author: " />
+                            android:text="@string/detail_txt_author" />
 
                         <TextView
                             android:id="@+id/txt_author"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:layout_height="wrap_content" />
 
                     </LinearLayout>
 
@@ -201,13 +191,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
-                            android:text="Author_id: " />
+                            android:text="@string/detail_txt_author_id" />
 
                         <TextView
                             android:id="@+id/txt_author_id"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:layout_height="wrap_content" />
 
                     </LinearLayout>
 
@@ -222,13 +211,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
-                            android:text="Tags: " />
+                            android:text="@string/detail_txt_tags" />
 
                         <TextView
                             android:id="@+id/txt_tags"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="TextView" />
+                            android:layout_height="wrap_content" />
 
                     </LinearLayout>
 

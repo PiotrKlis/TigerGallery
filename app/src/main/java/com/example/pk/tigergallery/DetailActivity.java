@@ -33,15 +33,15 @@ public class DetailActivity extends AppCompatActivity {
         TextView txtAuthor = (TextView) findViewById(R.id.txt_author);
         TextView txtAuthorId = (TextView) findViewById(R.id.txt_author_id);
         TextView txtTags = (TextView) findViewById(R.id.txt_tags);
-        mImageView = (ImageView) findViewById(R.id.image);
+        ImageView mImageView = (ImageView) findViewById(R.id.image);
 
         ImageElement imageElement = getIntent().getParcelableExtra(IMAGE_ELEMENT);
 
         txtTitle.setText(imageElement.getmTitle());
         txtLink.setText(imageElement.getmLink());
-        txtMedia.setText(imageElement.getmUrl());
-        txtDateTaken.setText(imageElement.getmDate_taken());
         txtDescription.setText(imageElement.getmDescription());
+        txtDateTaken.setText(imageElement.getmDate_taken());
+        txtMedia.setText(imageElement.getmUrl());
         txtPublished.setText(imageElement.getmPublished());
         txtAuthor.setText(imageElement.getmAuthor());
         txtAuthorId.setText(imageElement.getmAuthor_id());

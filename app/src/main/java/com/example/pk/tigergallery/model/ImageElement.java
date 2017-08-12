@@ -135,7 +135,6 @@ public class ImageElement implements Parcelable {
         parcel.writeString(mUrl);
         parcel.writeString(mTitle);
         parcel.writeString(mLink);
-        parcel.writeString(mDescription);
         parcel.writeString(mDate_taken);
         parcel.writeString(mDescription);
         parcel.writeString(mPublished);
