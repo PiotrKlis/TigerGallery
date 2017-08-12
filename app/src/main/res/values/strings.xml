@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TigerGallery</string>
+    <string name="app_name">Tiger Gallery</string>
     <string name="detail_txt_tags">Tags:</string>
     <string name="detail_txt_author_id">Author_id:</string>
     <string name="detail_txt_author">Author:</string>

@@ -13,17 +13,19 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            >
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
+
             android:name="com.example.pk.tigergallery.DetailActivity"
-            android:label="Detail Activity" >
+            android:label="Detail Activity"
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
 
