@@ -1,14 +1,22 @@
 package com.example.pk.tigergallery.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TableRow;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.pk.tigergallery.DetailActivity;
+import com.example.pk.tigergallery.MainActivity;
 import com.example.pk.tigergallery.R;
+import com.example.pk.tigergallery.model.ImageElement;
 
 import java.util.ArrayList;
 
@@ -18,31 +26,44 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<Bitmap> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    private ImageElement[] mImageElements;
+    private Context mContext;
 
-    public RecyclerViewAdapter(Context context, ArrayList<Bitmap> data) {
+    public RecyclerViewAdapter(Context context, ImageElement[] data) {
+        mContext = context;
         this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+        this.mImageElements = data;
     }
 
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
         View view = mInflater.inflate(R.layout.ryceclerview_item, parent, false);
-        return new ViewHolder(view);
+        return new RecyclerViewAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerViewAdapter.ViewHolder holder, int position) {
-        Bitmap image = mData.get(position);
-        holder.imageView.setImageBitmap(image);
+
+        ImageElement imageElement = mImageElements[position];
+        ImageView imageView = holder.imageView;
+
+        Glide.with(mContext)
+                .load(imageElement.getUrl())
+                .override(200,200)
+                .thumbnail(0.5f)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.draw_image)
+                .into(imageView);
 
     }
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return mImageElements.length;
     }
 
 
@@ -59,19 +80,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
-        }
-    }
 
-    // convenience method for getting data at click position
-    public Bitmap getItem(int id) {
-        return mData.get(id);
+            int position = getAdapterPosition();
+            if(position != RecyclerView.NO_POSITION) {
+                ImageElement imageElement = mImageElements[position];
+                Intent intent = new Intent(mContext, DetailActivity.class);
+                intent.putExtra(DetailActivity.EXTRA_SPACE_PHOTO, imageElement);
+                //mContext.startActivity(intent);
+            }
+
+        }
     }
 
     // allows clicks events to be caught
     public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
+
 
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener {

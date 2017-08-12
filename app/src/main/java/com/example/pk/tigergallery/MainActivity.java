@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.pk.tigergallery.adapter.RecyclerViewAdapter;
 import com.example.pk.tigergallery.http.ImageDownloader;
 import com.example.pk.tigergallery.http.RetrofitInterface;
+import com.example.pk.tigergallery.model.ImageElement;
 import com.example.pk.tigergallery.model.JSONResult;
 
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ import java.util.concurrent.ExecutionException;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.R.id.list;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener {
 
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         RetrofitInterface jsonService = RetrofitInterface.retrofit.create(RetrofitInterface.class);
         Call<JSONResult> call = jsonService.getEverything();
-        final ArrayList<Bitmap> imgBitmapArray = new ArrayList<>();
+        final ArrayList<ImageElement> urlArray = new ArrayList<>();
 
         call.enqueue(new Callback<JSONResult>() {
             @Override
@@ -43,14 +46,18 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 for (int i = 0; i < response.body().getItems().size(); i++) {
 
                     String urlString = response.body().getItems().get(i).getMedia().getM();
+
+                    urlArray.add(new ImageElement(urlString, "Testowy tytuł"));
+
                     //AsyncTask<String, Void, Bitmap> imgElement = new ImageDownloader(MainActivity.this).execute(urlString);
-                    try {
-                        imgBitmapArray.add(new ImageDownloader(MainActivity.this).execute(urlString).get());
+                    /*try {
+                        urlArray.add(new ImageDownloader(MainActivity.this).execute(urlString).get());
                     } catch (InterruptedException | ExecutionException e) {
                         e.printStackTrace();
-                    }
+                    }*/
                 }
-                showGridWithImages(imgBitmapArray);
+                ImageElement [] imageElementsList = urlArray.toArray(new ImageElement[urlArray.size()]);
+                showGridWithImages(imageElementsList);
             }
 
             @Override
@@ -60,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         });
     }
 
-        public void showGridWithImages(ArrayList<Bitmap> imgBitmapArray) {
+        public void showGridWithImages(ImageElement[] imgBitmapArray) {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         int numberOfColumns = 2;
