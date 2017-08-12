@@ -2,15 +2,12 @@ package com.example.pk.tigergallery.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TableRow;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -18,11 +15,8 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.pk.tigergallery.DetailActivity;
-import com.example.pk.tigergallery.MainActivity;
 import com.example.pk.tigergallery.R;
 import com.example.pk.tigergallery.model.ImageElement;
-
-import java.util.ArrayList;
 
 /**
  * Created by PK on 11.08.2017.
@@ -58,9 +52,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ImageView imageView = holder.imageView;
 
         Glide.with(mContext)
-                .load(imageElement.getUrl())
+                .load(imageElement.getmUrl())
                 .thumbnail(0.5f)
                 .dontAnimate()
+                .error(R.drawable.error_icon)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .listener(new RequestListener<String, GlideDrawable>() {
                     @Override
@@ -104,10 +99,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             if(position != RecyclerView.NO_POSITION) {
                 ImageElement imageElement = mImageElements[position];
                 Intent intent = new Intent(mContext, DetailActivity.class);
-                intent.putExtra(DetailActivity.EXTRA_SPACE_PHOTO, imageElement);
-                //mContext.startActivity(intent);
+                intent.putExtra(DetailActivity.IMAGE_ELEMENT, imageElement);
+                mContext.startActivity(intent);
             }
-
         }
     }
 

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
@@ -36,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -50,8 +54,17 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                         for (int i = 0; i < response.body().getItems().size(); i++) {
 
                             String urlString = response.body().getItems().get(i).getMedia().getM();
+                            String title = response.body().getItems().get(i).getTitle();
+                            String link = response.body().getItems().get(i).getLink();
+                            String date_taken = response.body().getItems().get(i).getDateTaken();
+                            String description = response.body().getItems().get(i).getDescription();
+                            String published = response.body().getItems().get(i).getPublished();
+                            String author = response.body().getItems().get(i).getAuthor();
+                            String author_id = response.body().getItems().get(i).getAuthorId();
+                            String tags = response.body().getItems().get(i).getTags();
 
-                            urlArray.add(new ImageElement(urlString, "Test Title"));
+                            urlArray.add(new ImageElement(urlString, title, link, date_taken,
+                                    description,published,author, author_id,tags));
 
                         }
                         ImageElement [] imageElementsList = urlArray.toArray(new ImageElement[urlArray.size()]);
@@ -67,12 +80,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         });
     }
 
-        public void showGridWithImages(ImageElement[] imgBitmapArray) {
+        public void showGridWithImages(ImageElement[] imgArray) {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         int numberOfColumns = 3;
         recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
-        recyclerViewAdapter = new RecyclerViewAdapter(this, imgBitmapArray);
+        recyclerViewAdapter = new RecyclerViewAdapter(this, imgArray);
         recyclerViewAdapter.setClickListener(this);
         recyclerView.setAdapter(recyclerViewAdapter);
 
