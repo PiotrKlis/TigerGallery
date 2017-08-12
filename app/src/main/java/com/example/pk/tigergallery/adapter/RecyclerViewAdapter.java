@@ -16,7 +16,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.pk.tigergallery.DetailActivity;
 import com.example.pk.tigergallery.R;
-import com.example.pk.tigergallery.model.ImageElement;
+import com.example.pk.tigergallery.model.ParcelableImageElement;
 
 /**
  * Created by PK on 11.08.2017.
@@ -26,14 +26,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
-    private ImageElement[] mImageElements;
+    private ParcelableImageElement[] mParcelableImageElements;
     private Context mContext;
     ProgressBar progressBar;
 
-    public RecyclerViewAdapter(Context context, ImageElement[] data) {
+    public RecyclerViewAdapter(Context context, ParcelableImageElement[] data) {
         mContext = context;
         this.mInflater = LayoutInflater.from(context);
-        this.mImageElements = data;
+        this.mParcelableImageElements = data;
     }
 
     @Override
@@ -48,11 +48,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(RecyclerViewAdapter.ViewHolder holder, int position) {
 
-        ImageElement imageElement = mImageElements[position];
+        ParcelableImageElement parcelableImageElement = mParcelableImageElements[position];
         ImageView imageView = holder.imageView;
 
         Glide.with(mContext)
-                .load(imageElement.getmUrl())
+                .load(parcelableImageElement.getmUrl())
                 .thumbnail(0.5f)
                 .dontAnimate()
                 .error(R.drawable.error_icon)
@@ -70,14 +70,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         return false;
                     }
                 })
-                .error(R.drawable.draw_image)
                 .into(imageView);
 
     }
 
     @Override
     public int getItemCount() {
-        return mImageElements.length;
+        return mParcelableImageElements.length;
     }
 
 
@@ -97,9 +96,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             int position = getAdapterPosition();
             if(position != RecyclerView.NO_POSITION) {
-                ImageElement imageElement = mImageElements[position];
+                ParcelableImageElement parcelableImageElement = mParcelableImageElements[position];
                 Intent intent = new Intent(mContext, DetailActivity.class);
-                intent.putExtra(DetailActivity.IMAGE_ELEMENT, imageElement);
+                intent.putExtra(DetailActivity.IMAGE_ELEMENT, parcelableImageElement);
                 mContext.startActivity(intent);
             }
         }

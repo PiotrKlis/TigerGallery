@@ -1,6 +1,6 @@
 package com.example.pk.tigergallery.http;
 
-import com.example.pk.tigergallery.model.JSONResult;
+import com.example.pk.tigergallery.model.FlickrFeed;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -16,7 +16,7 @@ public interface RetrofitInterface {
     String apiBaseURL = "https://api.flickr.com/services/feeds/";
 
     @GET("photos_public.gne?format=json&nojsoncallback=1")
-    Call<JSONResult> getEverything();
+    Call<FlickrFeed> getWholeMessage();
 
 
     Retrofit retrofit = new Retrofit.Builder()

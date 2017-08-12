@@ -1,6 +1,5 @@
 package com.example.pk.tigergallery;
 
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,19 +10,15 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.pk.tigergallery.adapter.RecyclerViewAdapter;
-import com.example.pk.tigergallery.http.ImageDownloader;
 import com.example.pk.tigergallery.http.RetrofitInterface;
-import com.example.pk.tigergallery.model.ImageElement;
-import com.example.pk.tigergallery.model.JSONResult;
+import com.example.pk.tigergallery.model.ParcelableImageElement;
+import com.example.pk.tigergallery.model.FlickrFeed;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.R.id.list;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener {
 
@@ -44,12 +39,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             @Override
             public void run() {
                 RetrofitInterface jsonService = RetrofitInterface.retrofit.create(RetrofitInterface.class);
-                Call<JSONResult> call = jsonService.getEverything();
-                final ArrayList<ImageElement> urlArray = new ArrayList<>();
+                Call<FlickrFeed> call = jsonService.getWholeMessage();
+                final ArrayList<ParcelableImageElement> urlArray = new ArrayList<>();
 
-                call.enqueue(new Callback<JSONResult>() {
+                call.enqueue(new Callback<FlickrFeed>() {
                     @Override
-                    public void onResponse(Call<JSONResult> call, Response<JSONResult> response) {
+                    public void onResponse(Call<FlickrFeed> call, Response<FlickrFeed> response) {
 
                         for (int i = 0; i < response.body().getItems().size(); i++) {
 
@@ -63,16 +58,16 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                             String author_id = response.body().getItems().get(i).getAuthorId();
                             String tags = response.body().getItems().get(i).getTags();
 
-                            urlArray.add(new ImageElement(urlString, title, link, date_taken,
+                            urlArray.add(new ParcelableImageElement(urlString, title, link, date_taken,
                                     description,published,author, author_id, tags));
 
                         }
-                        ImageElement [] imageElementsList = urlArray.toArray(new ImageElement[urlArray.size()]);
-                        showGridWithImages(imageElementsList);
+                        ParcelableImageElement[] parcelableImageElementsList = urlArray.toArray(new ParcelableImageElement[urlArray.size()]);
+                        showGridWithImages(parcelableImageElementsList);
                     }
 
                     @Override
-                    public void onFailure(Call<JSONResult> call, Throwable t) {
+                    public void onFailure(Call<FlickrFeed> call, Throwable t) {
                         Log.d(TAG, call.request().toString());
                     }
                 });
@@ -80,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         });
     }
 
-        public void showGridWithImages(ImageElement[] imgArray) {
+        public void showGridWithImages(ParcelableImageElement[] imgArray) {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         int numberOfColumns = 3;

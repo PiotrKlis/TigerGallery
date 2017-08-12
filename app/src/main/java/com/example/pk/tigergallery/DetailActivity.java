@@ -6,18 +6,21 @@ package com.example.pk.tigergallery;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.pk.tigergallery.model.ImageElement;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.example.pk.tigergallery.model.ParcelableImageElement;
 
 public class DetailActivity extends AppCompatActivity {
 
     public static final String IMAGE_ELEMENT = "IMAGE_ELEMENT";
-
-    private ImageView mImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,21 +38,21 @@ public class DetailActivity extends AppCompatActivity {
         TextView txtTags = (TextView) findViewById(R.id.txt_tags);
         ImageView mImageView = (ImageView) findViewById(R.id.image);
 
-        ImageElement imageElement = getIntent().getParcelableExtra(IMAGE_ELEMENT);
+        ParcelableImageElement parcelableImageElement = getIntent().getParcelableExtra(IMAGE_ELEMENT);
 
-        txtTitle.setText(imageElement.getmTitle());
-        txtLink.setText(imageElement.getmLink());
-        txtDescription.setText(imageElement.getmDescription());
-        txtDateTaken.setText(imageElement.getmDate_taken());
-        txtMedia.setText(imageElement.getmUrl());
-        txtPublished.setText(imageElement.getmPublished());
-        txtAuthor.setText(imageElement.getmAuthor());
-        txtAuthorId.setText(imageElement.getmAuthor_id());
-        txtTags.setText(imageElement.getmTags());
+        txtTitle.setText(parcelableImageElement.getmTitle());
+        txtLink.setText(parcelableImageElement.getmLink());
+        txtDescription.setText(parcelableImageElement.getmDescription());
+        txtDateTaken.setText(parcelableImageElement.getmDate_taken());
+        txtMedia.setText(parcelableImageElement.getmUrl());
+        txtPublished.setText(parcelableImageElement.getmPublished());
+        txtAuthor.setText(parcelableImageElement.getmAuthor());
+        txtAuthorId.setText(parcelableImageElement.getmAuthor_id());
+        txtTags.setText(parcelableImageElement.getmTags());
 
 
         Glide.with(this)
-                .load(imageElement.getmUrl())
+                .load(parcelableImageElement.getmUrl())
                 .asBitmap()
                 .error(R.drawable.error_icon)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)

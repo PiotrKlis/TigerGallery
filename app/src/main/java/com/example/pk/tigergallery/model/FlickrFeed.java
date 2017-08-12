@@ -8,7 +8,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class JSONResult {
+public class FlickrFeed {
 
     @SerializedName("title")
     @Expose

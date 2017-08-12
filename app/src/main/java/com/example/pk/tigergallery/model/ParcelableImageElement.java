@@ -3,7 +3,7 @@ package com.example.pk.tigergallery.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ImageElement implements Parcelable {
+public class ParcelableImageElement implements Parcelable {
 
     private String mUrl;
     private String mTitle;
@@ -15,7 +15,9 @@ public class ImageElement implements Parcelable {
     private String mAuthor_id;
     private String mTags;
 
-    public ImageElement(String mUrl, String mTitle, String mLink, String mDate_taken, String mDescription, String mPublished, String mAuthor, String mAuthor_id, String mTags) {
+    public ParcelableImageElement(String mUrl, String mTitle, String mLink, String mDate_taken,
+                                  String mDescription, String mPublished, String mAuthor,
+                                  String mAuthor_id, String mTags) {
         this.mUrl = mUrl;
         this.mTitle = mTitle;
         this.mLink = mLink;
@@ -27,7 +29,7 @@ public class ImageElement implements Parcelable {
         this.mTags = mTags;
     }
 
-    protected ImageElement(Parcel in) {
+    private ParcelableImageElement(Parcel in) {
         mUrl = in.readString();
         mTitle = in.readString();
         mLink = in.readString();
@@ -40,15 +42,15 @@ public class ImageElement implements Parcelable {
 
     }
 
-    public static final Creator<ImageElement> CREATOR = new Creator<ImageElement>() {
+    public static final Creator<ParcelableImageElement> CREATOR = new Creator<ParcelableImageElement>() {
         @Override
-        public ImageElement createFromParcel(Parcel in) {
-            return new ImageElement(in);
+        public ParcelableImageElement createFromParcel(Parcel in) {
+            return new ParcelableImageElement(in);
         }
 
         @Override
-        public ImageElement[] newArray(int size) {
-            return new ImageElement[size];
+        public ParcelableImageElement[] newArray(int size) {
+            return new ParcelableImageElement[size];
         }
     };
 
@@ -56,73 +58,38 @@ public class ImageElement implements Parcelable {
         return mLink;
     }
 
-    public void setmLink(String mLink) {
-        this.mLink = mLink;
-    }
-
     public String getmUrl() {
         return mUrl;
-    }
-
-    public void setmUrl(String mUrl) {
-        this.mUrl = mUrl;
     }
 
     public String getmTitle() {
         return mTitle;
     }
 
-    public void setmTitle(String mTitle) {
-        this.mTitle = mTitle;
-    }
-
     public String getmDate_taken() {
         return mDate_taken;
-    }
-
-    public void setmDate_taken(String mDate_taken) {
-        this.mDate_taken = mDate_taken;
     }
 
     public String getmDescription() {
         return mDescription;
     }
 
-    public void setmDescription(String mDescription) {
-        this.mDescription = mDescription;
-    }
-
     public String getmPublished() {
         return mPublished;
-    }
-
-    public void setmPublished(String mPublished) {
-        this.mPublished = mPublished;
     }
 
     public String getmAuthor() {
         return mAuthor;
     }
 
-    public void setmAuthor(String mAuthor) {
-        this.mAuthor = mAuthor;
-    }
-
     public String getmAuthor_id() {
         return mAuthor_id;
-    }
-
-    public void setmAuthor_id(String mAuthor_id) {
-        this.mAuthor_id = mAuthor_id;
     }
 
     public String getmTags() {
         return mTags;
     }
 
-    public void setmTags(String mTags) {
-        this.mTags = mTags;
-    }
 
 
     @Override
