@@ -28,7 +28,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ItemClickListener mClickListener;
     private ParcelableImageElement[] mParcelableImageElements;
     private Context mContext;
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
 
     public RecyclerViewAdapter(Context context, ParcelableImageElement[] data) {
         mContext = context;
@@ -81,11 +81,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public ImageView imageView;
+        ImageView imageView;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
             itemView.setOnClickListener(this);

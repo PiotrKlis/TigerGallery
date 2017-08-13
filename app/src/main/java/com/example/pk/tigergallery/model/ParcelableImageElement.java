@@ -29,7 +29,7 @@ public class ParcelableImageElement implements Parcelable {
         this.mTags = mTags;
     }
 
-    private ParcelableImageElement(Parcel in) {
+    public ParcelableImageElement(Parcel in) {
         mUrl = in.readString();
         mTitle = in.readString();
         mLink = in.readString();

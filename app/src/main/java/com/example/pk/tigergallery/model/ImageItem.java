@@ -37,6 +37,9 @@ public class ImageItem {
     @Expose
     private String tags;
 
+    public ImageItem() {
+    }
+
     public String getTitle() {
         return title;
     }
