@@ -18,10 +18,6 @@ import com.example.pk.tigergallery.DetailActivity;
 import com.example.pk.tigergallery.R;
 import com.example.pk.tigergallery.model.ParcelableImageElement;
 
-/**
- * Created by PK on 11.08.2017.
- */
-
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     private LayoutInflater mInflater;
@@ -110,7 +106,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
 
-    // parent activity will implement this method to respond to click events
+    // parent activity implements this method to respond to click events
     public interface ItemClickListener {
         void onItemClick(View view, int position);
     }

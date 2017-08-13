@@ -22,8 +22,6 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener {
 
-    // Flickr key 43ceb1fbc432d1d53687c2d1b9a7a2d8
-
     String TAG = "MainActivity";
     RecyclerViewAdapter recyclerViewAdapter;
 
@@ -34,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // download json data using retrofit
 
         AsyncTask.execute(new Runnable() {
             @Override
@@ -62,7 +62,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                                     description,published,author, author_id, tags));
 
                         }
+
+                        // parse ArrayList into Array
                         ParcelableImageElement[] parcelableImageElementsList = urlArray.toArray(new ParcelableImageElement[urlArray.size()]);
+
                         showGridWithImages(parcelableImageElementsList);
                     }
 
@@ -74,6 +77,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             }
         });
     }
+
+    /**
+     * Method shows grid using recycler view, filled with images
+     * @param imgArray array with images data
+     */
 
         public void showGridWithImages(ParcelableImageElement[] imgArray) {
 
